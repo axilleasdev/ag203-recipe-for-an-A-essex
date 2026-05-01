@@ -12,10 +12,11 @@
  * not silently ignored. Prepared statements prevent SQL injection.
  */
 
-$host = 'localhost';
-$dbname = 'recipe_network';
-$username = 'root';
-$password = 'root'; // Change for your MAMP/XAMPP setup
+// Use environment variables (Docker) or fallback to defaults
+$host = getenv('DB_HOST') ?: 'localhost';
+$dbname = getenv('DB_NAME') ?: 'recipe_network';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASS') ?: 'root';
 
 try {
     $pdo = new PDO(
