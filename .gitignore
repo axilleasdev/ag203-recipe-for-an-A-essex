@@ -1,0 +1,20 @@
+# Dependencies
+/vendor/
+
+# Environment
+.env
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Uploaded images (user content)
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/.gitignore
