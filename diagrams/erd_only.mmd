@@ -1,0 +1,40 @@
+erDiagram
+    USERS {
+        INT id PK
+        VARCHAR username UK
+        VARCHAR email UK
+        VARCHAR password
+        TIMESTAMP created_at
+    }
+
+    RECIPES {
+        INT id PK
+        INT user_id FK
+        VARCHAR title
+        TEXT description
+        TEXT ingredients
+        TEXT instructions
+        VARCHAR image_path
+        TIMESTAMP created_at
+    }
+
+    LIKES {
+        INT id PK
+        INT user_id FK
+        INT recipe_id FK
+        TIMESTAMP created_at
+    }
+
+    COMMENTS {
+        INT id PK
+        INT user_id FK
+        INT recipe_id FK
+        TEXT comment_text
+        TIMESTAMP created_at
+    }
+
+    USERS ||--o{ RECIPES : "uploads"
+    USERS ||--o{ LIKES : "gives"
+    USERS ||--o{ COMMENTS : "writes"
+    RECIPES ||--o{ LIKES : "receives"
+    RECIPES ||--o{ COMMENTS : "has"

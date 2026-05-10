@@ -18,3 +18,7 @@ Thumbs.db
 /uploads/*
 !/uploads/.gitkeep
 !/uploads/.gitignore
+
+# Report (not part of source code)
+/report/
+/screenshots/

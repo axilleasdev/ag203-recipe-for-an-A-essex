@@ -76,12 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Recipe - Recipe Network</title>
+    <title>Edit Recipe - Achilleas' Kitchen</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.php" class="logo">🍳 Recipe Network</a>
+        <a href="index.php" class="logo">👨‍🍳 Achilleas' Kitchen</a>
         <div class="nav-links">
             <a href="index.php">Recipes</a>
             <a href="upload.php">Upload</a>

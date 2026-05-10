@@ -60,12 +60,12 @@ $isOwner = $isLoggedIn && $_SESSION['user_id'] == $recipe['user_id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($recipe['title']) ?> - Recipe Network</title>
+    <title><?= htmlspecialchars($recipe['title']) ?> - Achilleas' Kitchen</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.php" class="logo">🍳 Recipe Network</a>
+        <a href="index.php" class="logo">👨‍🍳 Achilleas' Kitchen</a>
         <div class="nav-links">
             <a href="index.php">Recipes</a>
             <?php if ($isLoggedIn): ?>

@@ -1,0 +1,34 @@
+graph TD
+    subgraph Client["CLIENT (Browser)"]
+        HTML["HTML5 Pages"]
+        CSS["CSS3 Styling"]
+        JS["JavaScript / jQuery"]
+        AJAX["AJAX Requests"]
+    end
+
+    subgraph Server["SERVER (PHP)"]
+        Pages["PHP Pages<br/>index.php, recipe.php<br/>login.php, register.php<br/>upload.php, profile.php"]
+        API["API Endpoints<br/>api/like.php<br/>api/comment.php"]
+        Config["config/database.php<br/>PDO Connection"]
+    end
+
+    subgraph Database["DATABASE (MySQL)"]
+        Users["users"]
+        Recipes["recipes"]
+        Likes["likes"]
+        Comments["comments"]
+    end
+
+    HTML --> JS
+    CSS --> HTML
+    JS --> AJAX
+    AJAX -->|"HTTP POST (JSON)"| API
+    HTML -->|"HTTP GET/POST"| Pages
+    Pages --> Config
+    API --> Config
+    Config -->|"PDO Prepared Statements"| Database
+    Users --- Recipes
+    Users --- Likes
+    Users --- Comments
+    Recipes --- Likes
+    Recipes --- Comments
