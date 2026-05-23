@@ -58,6 +58,25 @@ To also remove the database volume:
 docker-compose down -v
 ```
 
+## 🚀 Production Deployment (AWS EC2)
+
+For deploying to a server (no phpMyAdmin, hardened MySQL, persistent EBS data):
+
+```bash
+# On the server (assumes /mnt/data exists and is writable)
+mkdir -p /mnt/data/mysql /mnt/data/uploads
+docker compose -f docker-compose.prod.yml up -d
+```
+
+**Differences from dev**:
+- ❌ No phpMyAdmin (security)
+- 🔒 MySQL is internal-only (no public 3306)
+- 💾 MySQL data + uploads stored on `/mnt/data` (separate EBS volume)
+- ♻️ Auto-restart on failure / docker daemon restart
+
+The app is exposed only on port `8080`. Use a reverse proxy (Nginx, Caddy, or
+Cloudflare Worker) for HTTPS termination in front of it.
+
 ## 📁 Project Structure
 
 ```

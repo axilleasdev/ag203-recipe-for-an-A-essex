@@ -1,0 +1,49 @@
+# Production deployment compose file.
+# Usage on EC2:  docker compose -f docker-compose.prod.yml up -d
+#
+# Differences from docker-compose.yml (dev):
+#   - No phpmyadmin (security)
+#   - MySQL is internal-only (no public 3306)
+#   - Persistent data on /mnt/data EBS volume (survives instance termination)
+#   - Auto-restart on failure / docker daemon restart
+#
+# Prerequisites on the host:
+#   - /mnt/data exists and is writable by the container's mysql user (uid 999)
+#   - /mnt/data/mysql, /mnt/data/uploads directories created
+#
+services:
+  web:
+    image: php:8.2-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - /mnt/data/uploads:/var/www/html/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_NAME=recipe_network
+      - DB_USER=root
+      - DB_PASS=root
+    command: >
+      bash -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground"
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: recipe_network
+    expose:
+      - "3306"
+    volumes:
+      - /mnt/data/mysql:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
