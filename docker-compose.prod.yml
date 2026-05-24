@@ -24,6 +24,9 @@ services:
     volumes:
       - ./:/var/www/html
       - /mnt/data/uploads:/var/www/html/uploads
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       - DB_HOST=db
       - DB_NAME=recipe_network
