@@ -30,6 +30,8 @@ try {
         ]
     );
 } catch (PDOException $e) {
-    // Don't expose DB details in production
+    // Return 503 so CloudFront triggers failover to the loading page
+    // instead of showing this error to the visitor.
+    http_response_code(503);
     die('Database connection failed. Please try again later.');
 }
